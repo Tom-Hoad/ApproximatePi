@@ -1,9 +1,13 @@
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class ApproximatePi extends Application {
     @Override
@@ -21,15 +25,22 @@ public class ApproximatePi extends Application {
         layout.getChildren().addAll(circle);
 
         // Creates random dots.
-        for (int i = 1; i < 10000; i++) {
-            Circle dot = new Circle();
-            dot.setRadius(0);
-            dot.setLayoutX(Math.random() * 400);
-            dot.setLayoutY(Math.random() * 400);
-            dot.setStroke(Color.WHITE);
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis(10),
+                        event -> {
+                            Circle dot = new Circle();
+                            dot.setRadius(0);
+                            dot.setLayoutX(Math.random() * 400);
+                            dot.setLayoutY(Math.random() * 400);
+                            dot.setStroke(Color.WHITE);
 
-            layout.getChildren().add(dot);
-        }
+                            layout.getChildren().add(dot);
+                        }
+                )
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
         Scene scene = new Scene(layout, 400, 400, Color.BLACK);
         stage.setScene(scene);
