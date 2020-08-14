@@ -2,6 +2,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -27,7 +28,9 @@ public class ApproximatePi extends Application {
         circle.setStroke(Color.WHITE);
 
         Pane layout = new Pane();
-        layout.getChildren().addAll(circle);
+        Pane innerDots = new Pane();
+        Pane outerDots = new Pane();
+        layout.getChildren().addAll(circle, innerDots, outerDots);
 
         // Creates random dots indefinitely.
         Timeline timeline = new Timeline(
@@ -40,18 +43,22 @@ public class ApproximatePi extends Application {
                             int x = rand.nextInt(2 * radius);
                             int y = rand.nextInt(2 * radius);
                             double d = Math.sqrt(((x - 200) * (x - 200)) + ((y - 200) * (y - 200)));
-                            System.out.println("X: " + x + " Y: " + y + " D: " + d);
 
                             dot.setLayoutX(x);
                             dot.setLayoutY(y);
 
                             if (d < radius) {
                                 dot.setStroke(Color.GREEN);
+                                innerDots.getChildren().add(dot);
                             } else {
                                 dot.setStroke(Color.WHITE);
+                                outerDots.getChildren().add(dot);
                             }
 
-                            layout.getChildren().add(dot);
+                            double innerSize = innerDots.getChildren().size();
+                            double totalSize = innerSize + outerDots.getChildren().size();
+                            double approximate = 4 * (innerSize / totalSize);
+                            System.out.println(approximate);
                         }
                 )
         );
