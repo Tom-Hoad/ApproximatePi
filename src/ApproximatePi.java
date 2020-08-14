@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -11,12 +10,26 @@ public class ApproximatePi extends Application {
     public void start(Stage stage) {
         stage.setTitle("ApproximatePi");
 
+        // Creates the circle.
         Circle circle = new Circle();
         circle.setRadius(200);
-        circle.setStroke(Color.GREEN);
+        circle.setLayoutX(200);
+        circle.setLayoutY(200);
+        circle.setStroke(Color.WHITE);
 
-        StackPane layout = new StackPane();
-        layout.getChildren().add(circle);
+        Pane layout = new Pane();
+        layout.getChildren().addAll(circle);
+
+        // Creates random dots.
+        for (int i = 1; i < 10000; i++) {
+            Circle dot = new Circle();
+            dot.setRadius(0);
+            dot.setLayoutX(Math.random() * 400);
+            dot.setLayoutY(Math.random() * 400);
+            dot.setStroke(Color.WHITE);
+
+            layout.getChildren().add(dot);
+        }
 
         Scene scene = new Scene(layout, 400, 400, Color.BLACK);
         stage.setScene(scene);
