@@ -35,7 +35,7 @@ public class ApproximatePi extends Application {
         // Creates random dots indefinitely.
         Timeline timeline = new Timeline(
                 new KeyFrame(
-                        Duration.millis(10),
+                        Duration.millis(1),
                         event -> {
                             Circle dot = new Circle();
                             dot.setRadius(0);
